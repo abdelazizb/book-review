@@ -64,7 +64,7 @@ router.post('/login', async (req, res)=>{
         }
        
       
-        jwt.sign({user}, process.env.jwt_sercret, (err, token)=>{
+        jwt.sign({user}, process.env.jwt_secret, (err, token)=>{
             return res.status(200).json({token})
         })
         

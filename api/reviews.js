@@ -3,21 +3,32 @@ const Review = require('../models/Review')
 const router = express.Router()
 const auth = require('./auth')
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 
 
 router.get('/', auth, async (req,res)=>{
-    const token = req.token
-    if(!token){
-        return res.status(403).json({msg :"Access Denied."})
+
+    const { token } = req
+
+    try {
+        jwt.verify(token, process.env.jwt_secret, (err, authData)=>{
+            if(err){
+                console.log(err)
+                return res.status(403).json({msg : err.message})
+                
+            }
+            return res.status(200).json({authData})
+        })
+    } catch (err) {
+        console.error(err.message)
+        res.status(403).json({msg : "Not authorized."})
     }
 
-    jwt.verify(token, process.env.jwt_secret, (err ,authData)=>{
-        if(err){
-            return res.status(403)
-        }
+    
         
-    })
+    /*
+    
 
     try {
         let posts = await Review.find()
@@ -26,7 +37,7 @@ router.get('/', auth, async (req,res)=>{
         console.error(err.message)
         res.status(500).json({msg : "Server error"})
     }
-
+*/
 })
 
 

@@ -20,7 +20,7 @@ app.use(cors({
 app.use(express.json({extended : false}))
 
 app.listen(PORT,()=>{
-	console.log(`server started, go to: http:/localhost:${PORT}`)
+	console.log(`server started, go to: http://localhost:${PORT}`)
 })
 
 
