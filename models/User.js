@@ -1,7 +1,20 @@
 const mongoose = require('mongoose')
 
 
+const requiredString = {
+    type : String,
+    required : true
+}
 
+const ReviewShema = mongoose.Schema({
+    title : requiredString,
+    review : requiredString,
+    rating : {
+        type : Number,
+        required : true,
+        default : 0
+    }
+})
 
 const UserSchema = mongoose.Schema({
     username : {
@@ -12,7 +25,11 @@ const UserSchema = mongoose.Schema({
     password : {
         type : String,
         required : true
-    }
+    },
+    reviews :[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Review'
+    }]    
 })
 
 

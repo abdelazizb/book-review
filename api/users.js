@@ -36,7 +36,7 @@ router.post('/create',[ check('username', 'username is required and must have at
         //saving it to the database
         await user.save()
         //sending response to front-end client
-        return res.status(200).json(user)
+        return res.status(200).json({msg : `user ${user.username} has been successfuly created.`})
 
     }catch (err) {
         console.error(err._message)
